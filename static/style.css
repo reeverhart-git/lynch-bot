@@ -1,0 +1,137 @@
+.event {
+    min-height: 10%;
+    min-width: 250px;
+    display: table;
+    font-family: "Lucida Console", Courier;
+	color: rgb(151, 151, 151);
+	background-color: rgb(87, 81, 81);
+    margin: 20px 20px;
+    padding: 4px 4px;
+	border-radius: 16px;
+	border-style: solid;
+	border-width: 4px;
+    border-color: DimGrey;
+}
+
+.event .name {
+    color: Black;
+    background-color:DarkSeaGreen;
+    border-style: solid;
+	border-width: 4px;
+    border-color: DimGrey;
+    border-radius: 16px;
+    padding: 2px 4px;
+    width: 100%;
+}
+
+.event .tab {
+    min-width: 4vw;
+    display:flex;
+    justify-content: space-between;
+}
+
+.eventbox .button {
+    float: right;
+    font-size: 12px;
+	padding: 4px 8px;
+	width: 40px;
+	height: 30px;
+}
+
+.eventbox {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    background: rgb(173, 160, 151);
+    overflow: auto;
+    word-wrap: break-word;
+    scrollbar-width: thin;
+    border-radius: 16px;
+	border-style: solid;
+	border-width: 4px;
+    border-color: DimGrey;
+
+    height: 50%;
+}
+
+.inputbox {
+    font-family: "Lucida Console", Courier;
+	color: Black;
+	padding: 10px 10px;
+	background-color: DarkSeaGreen;
+    border-radius: 16px;
+	border-style: solid;
+	border-width: 4px;
+    border-color: DimGrey;
+    height: 30%;
+    overflow: auto;
+    word-wrap: break-word;
+    scrollbar-width: thin;
+}
+
+.inputbox h1{
+    font-size: 20px;
+    background-color: DimGrey;
+	color: DarkSeaGreen;
+	padding: 2px 18px;
+    border-radius: 12px;
+    margin: 4px 4px;
+}
+
+
+.inputfield {
+    width: 15%;
+    margin: 4px 4px;
+    padding: 4px 8px;
+    border-radius: 16px;
+	border-style: solid;
+	border-width: 4px;
+    border-color: DimGrey;
+    background-color: Gainsboro;
+}
+
+.inputfieldbig {
+    resize: none;
+    display: flex;
+    width: 98%;
+    height: 100%
+    padding: 4px 8px;
+    border-radius: 16px;
+	border-style: solid;
+	border-width: 4px;
+    border-color: DimGrey;
+    background-color: Gainsboro;
+}
+
+.button {
+	background-color: DimGrey;
+	color: DarkSeaGreen;
+	font-size: 16px;
+	padding: 2px 18px;
+    border-radius: 12px;
+    margin: 4px 4px;
+}
+.button:hover {
+	box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+.button:active {
+	box-shadow: 0 5px #666;
+	transform: translateY(4px);
+}
+
+h1 {
+    background-color: DimGrey;
+	color: DarkSeaGreen;
+	padding: 2px 18px;
+    border-radius: 12px;
+    margin: auto auto;
+}
+
+html {
+    background-color: black;
+}
+
+.wrapper {
+    margin: 5vh 10vw;
+    width: 80vw;
+    height: 95vh;
+}

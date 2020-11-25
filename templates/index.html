@@ -1,0 +1,105 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Lynch Bot Home Page</title>
+        <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+    </head>
+    <body>
+        <div class="wrapper">
+            <h1>Current Events:</h1>
+            <div class="eventbox">
+                    {% for e in events %}
+                            <form action="{{ url_for('removeEvent') }}" method="post">
+                                <div class="event">
+                                    <div class ="tab">
+                                        <div class ="name">{{e.name}}</div>
+                                        <button class="button" type = "submit">X</button>
+                                    </div>
+                                    <p>{{e.desc}}</p>
+                                    <input type="hidden" name="event_name" value="{{ e.name }}">
+                                     <ul>
+                                        {% for p in e.participants %}
+                                            <p>{{p.name}}</p>
+                                        {% endfor %}
+                                    </ul>
+
+                                </div>
+
+                            </form>
+                    {% endfor %}
+            </div>
+
+
+            <div class="inputbox">
+                <h1>Post something new:</h1>
+                <form action="{{ url_for('addEvent') }}" method="post">
+                    <label>Event Name</label>
+                    <input class="inputfield" id="eventname" name="ename" placeholder="Type the name here.">
+                    <label>When?</label>
+                    <select class="inputfield" id="date" name="edate">
+                        <option value="Weekends">Weekends</option>
+                        <option value="Mondays">Every Monday</option>
+                        <option value="Tuesdays">Every Tuesday</option>
+                        <option value="Wednesdays">Every Wednesday</option>
+                        <option value="Thursdays">Every Thursday</option>
+                        <option value="Fridays">Every Friday</option>
+                        <option value="Saturdays">Every Saturday</option>
+                        <option value="Sundays">Every Sunday</option>
+                        <option value="Whenever">Whenever</option>
+                        <option value="All Spring">Spring Season</option>
+                        <option value="All Summer">Summer Season</option>
+                        <option value="All Fall">Fall Season</option>
+                        <option value="All Winter">Winter Season</option>
+                        <option value="January">All of January</option>
+                        <option value="February">All of February</option>
+                        <option value="March">All of March</option>
+                        <option value="April">All of April</option>
+                        <option value="May">All of May</option>
+                        <option value="Jun">All of June</option>
+                        <option value="July">All of July</option>
+                        <option value="August">All of August</option>
+                        <option value="September">All of September</option>
+                        <option value="October">All of October</option>
+                        <option value="November">All of November</option>
+                        <option value="December">All of December</option>
+                    </select>
+                    <select class="inputfield" id="time" name="etime">
+                        <option value="Nights">Nights</option>
+                        <option value="Days">Days</option>
+                        <option value="1AM">1AM</option>
+                        <option value="2AM">2AM</option>
+                        <option value="3AM">3AM</option>
+                        <option value="4AM">4AM</option>
+                        <option value="5AM">5AM</option>
+                        <option value="6AM">6AM</option>
+                        <option value="7AM">7AM</option>
+                        <option value="8AM">8AM</option>
+                        <option value="9AM">9AM</option>
+                        <option value="10AM">10AM</option>
+                        <option value="11AM">11AM</option>
+                        <option value="12PM">12PM</option>
+                        <option value="1PM">1PM</option>
+                        <option value="2PM">2PM</option>
+                        <option value="3PM">3PM</option>
+                        <option value="4PM">4PM</option>
+                        <option value="5PM">5PM</option>
+                        <option value="6PM">6PM</option>
+                        <option value="7PM">7PM</option>
+                        <option value="8PM">8PM</option>
+                        <option value="9PM">9PM</option>
+                        <option value="10PM">10PM</option>
+                        <option value="11PM">11PM</option>
+                        <option value="12AM">12AM</option>
+
+                    </select>
+                    <button class="button" type = "submit">Submit</button>
+                    <br>
+                    <label>Event Description</label>
+                    <textarea class="inputfieldbig" id="eventdesc" name="edesc" placeholder="Describe the event."></textarea>
+
+
+                </form>
+            </div>
+        </div>
+    </body>
+</html>
