@@ -11,6 +11,7 @@ app = Quart(__name__)
 client = commands.Bot(command_prefix=',')
 
 DISCORD_TOKEN = os.getenv('DISCORD_TOKEN')
+LOCAL_IP = os.getenv('LOCAL_IP')
 
 @client.event
 async def on_ready():
@@ -60,6 +61,6 @@ for filename in os.listdir('./cogs'):
 
 
 # run the bot with the discord token, currently token is exposed, security issue
-client.loop.create_task(app.run_task('192.168.1.123', 5000, debug=True))
+client.loop.create_task(app.run_task(LOCAL_IP, 5000, debug=True))
 client.run(DISCORD_TOKEN)
 
