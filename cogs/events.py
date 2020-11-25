@@ -1,6 +1,7 @@
 import discord
 import json
 import datetime
+import asyncio
 from discord.ext import commands, tasks
 
 URL = "http://172.222.228.170:5000/"
@@ -287,6 +288,40 @@ class Events(commands.Cog):
         embed.set_footer(text="Now go and join/plan some events!", icon_url=self.client.user.avatar_url)
         embed.set_thumbnail(url="https://i.postimg.cc/rs3JNPq3/masks.png")
         await ctx.send(embed=embed)
+
+    @commands.command(aliases=['ads'])
+    async def showAds(self, ctx):
+        with open('cogs/ads.json') as json_file:
+            data = json.load(json_file)
+        embed = discord.Embed(title="Ads", color=0xe79943)
+        admsg = await ctx.send(embed=embed)
+        iterations = 4
+        for loop in range(0, iterations):
+            for index in range(0, len(data["ads"])):
+                try:
+                    if "name" in data["ads"][index]:
+                        if not str(data["ads"][index]["name"]).isspace() and len(data["ads"][index]["name"]) > 0:
+                            nembed = discord.Embed(title=data["ads"][index]["name"], color=0xe79943)
+                        else:
+                            nembed = discord.Embed(title="Unknown", color=0xe79943)
+                    else:
+                        nembed = discord.Embed(title="Unknown", color=0xe79943)
+                    if "img" in data["ads"][index]:
+                        if not str(data["ads"][index]["img"]).isspace() and len(data["ads"][index]["img"]) > 0:
+                            nembed.set_image(url=data["ads"][index]["img"])
+                    nembed.description = f'[Advertise here!]({URL+"ads"})'
+                    if "desc" in data["ads"][index]:
+                        if not str(data["ads"][index]["desc"]).isspace() and len(data["ads"][index]["desc"]) > 0:
+                            nembed.add_field(name='Description:', value=data["ads"][index]["desc"], inline=False)
+                    if "owner" in data["ads"][index]:
+                        if not str(data["ads"][index]["owner"]).isspace() and len(data["ads"][index]["owner"]) > 0:
+                            nembed.set_footer(text=f'Ad {index+1} of {len(data["ads"])}\nBrought to you by: {data["ads"][index]["owner"]}')
+                    else:
+                        nembed.set_footer(text=f'Ad {index + 1} of {len(data["ads"])}')
+                    await admsg.edit(embed=nembed)
+                    await asyncio.sleep(10)
+                except discord.HTTPException:
+                    pass
 
 
 def setup(client):

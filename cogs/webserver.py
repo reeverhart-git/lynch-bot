@@ -1,12 +1,11 @@
 import discord
 import json
 import sys
-from quart import Quart, redirect, url_for, render_template, request
+from quart import Quart, redirect, url_for, render_template, request, flash
 from discord.ext import commands, tasks
 
 sys.path.append("bot.py")
 from bot import app
-
 
 
 @app.route("/")
@@ -18,6 +17,7 @@ async def home():
     except ConnectionAbortedError:
         # This error happens mostly when the browser is closed, non issue.
         pass
+
 
 @app.route("/addEvent", methods=['POST'])
 async def addEvent():
@@ -55,6 +55,49 @@ async def removeEvent():
     with open('cogs/events.json', 'w') as outfile:
         json.dump(data, outfile)
     return redirect(url_for('home'))
+
+@app.route("/ads")
+async def adhome():
+    try:
+        with open('cogs/ads.json') as json_file:
+            data = json.load(json_file)
+        return await render_template("adindex.html", ads=data["ads"])
+    except ConnectionAbortedError:
+        # This error happens mostly when the browser is closed, non issue.
+        pass
+
+@app.route("/removeAd", methods=['POST'])
+async def removeAd():
+    with open('cogs/ads.json') as json_file:
+        data = json.load(json_file)
+    index = 0
+    aname = (await request.form)['ad_name']
+    for a in data['ads']:
+        if a['name'] == aname:
+            del data['ads'][index]
+        index += 1
+    with open('cogs/ads.json', 'w') as outfile:
+        json.dump(data, outfile)
+    return redirect(url_for('adhome'))
+
+
+@app.route("/addAd", methods=['POST'])
+async def addAd():
+    with open('cogs/ads.json') as json_file:
+        data = json.load(json_file)
+    aname = (await request.form)['aname']
+    adesc = (await request.form)['adesc']
+    aowner = (await request.form)['aowner']
+    aimg = (await request.form)['aimg']
+    data['ads'].append({
+        "name": aname,
+        "desc": adesc,
+        "owner": aowner,
+        "img": aimg,
+    })
+    with open('cogs/ads.json', 'w') as outfile:
+        json.dump(data, outfile)
+    return redirect(url_for('adhome'))
 
 
 class WebServer(commands.Cog):
