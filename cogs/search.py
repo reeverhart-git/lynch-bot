@@ -7,6 +7,7 @@ import json
 import os
 from dotenv import load_dotenv
 from discord.ext import commands
+
 load_dotenv(dotenv_path="bot.env")
 
 with open('cogs/theme.json') as json_file:
@@ -22,6 +23,18 @@ SEARCH_PREFIX_REST = 'https://www.googleapis.com/customsearch/v1/siterestrict?ke
 CDI_START = ['https://i.postimg.cc/qqZN2psw/linksearch.gif', 'https://i.postimg.cc/WbF3QL6R/morshusearch.gif',
              'https://i.postimg.cc/B6bmG95F/mariosearch.gif']
 CDI_KING = 'https://i.postimg.cc/nLcd8H5H/kingsearch.gif'
+
+# This is for xmas theme
+# All sourced from https://www.fg-a.com/christmas.htm
+XMAS_START = ["https://www.fg-a.com/christmas/santa-scooter.gif",
+              "https://www.fg-a.com/christmas/4-animated-christmastree.gif",
+              "https://www.fg-a.com/christmas/santa-animated-elf-1.gif",
+              "https://www.fg-a.com/christmas/snowman-merry-christmas.gif",
+              "https://www.fg-a.com/christmas/2018-santa-skating-animation.gif",
+              "https://www.fg-a.com/christmas/christmas-fireplace-2018.gif",
+              "https://www.fg-a.com/christmas/merry-christmas-elf.gif",
+              "https://www.fg-a.com/christmas/santa-delivering-gifts-1.gif",
+              "https://www.fg-a.com/christmas/2020-santa-dance-animation.gif"]
 
 
 class QueryMessage:
@@ -41,7 +54,7 @@ def findInQList(attribute, qlist):
     return None
 
 
-async def popImages(imglist,q, n, restrict):
+async def popImages(imglist, q, n, restrict):
     # This is the Google API custom search engine link that sends up to 10 json objects.
     # The free version has a cap of 100 queries a day, not for heavy server use.
     # In the event that the default search engine is out of queries, we use the site restricted version.
@@ -192,12 +205,20 @@ class GoogleImageSearch(commands.Cog):
             # Here we set the embed to "link" from the google json api, as that displays the image from the search.
             em = discord.Embed(title=f"Search for: {query}", color=0x00a33f)
             if self.mode == "cdi":
-                cdiurl= random.choice(CDI_START)
+                cdiurl = random.choice(CDI_START)
                 delay = 1
                 em.set_image(url=cdiurl)
                 msg = await ctx.send(embed=em)
                 if cdiurl == CDI_START[2]:
                     delay = 3.5
+                await asyncio.sleep(delay)
+                em.set_image(url=imagelist[inc])
+                await msg.edit(embed=em)
+            elif self.mode == "xmas":
+                xmasurl = random.choice(XMAS_START)
+                delay = 2
+                em.set_image(url=xmasurl)
+                msg = await ctx.send(embed=em)
                 await asyncio.sleep(delay)
                 em.set_image(url=imagelist[inc])
                 await msg.edit(embed=em)
@@ -213,7 +234,8 @@ class GoogleImageSearch(commands.Cog):
         except TypeError:
             if self.mode == "cdi":
                 nem = discord.Embed(title="Hmm... No images. Try again?", color=0x00a33f)
-                nem.set_footer(text="Google API could be done for the day, try ,simg!", icon_url=self.client.user.avatar_url)
+                nem.set_footer(text="Google API could be done for the day, try ,simg!",
+                               icon_url=self.client.user.avatar_url)
                 nem.set_image(url=CDI_KING)
                 await ctx.send(embed=nem)
             else:
@@ -242,6 +264,14 @@ class GoogleImageSearch(commands.Cog):
                 msg = await ctx.send(embed=em)
                 if cdiurl == CDI_START[2]:
                     delay = 3.5
+                await asyncio.sleep(delay)
+                em.set_image(url=imagelist[inc])
+                await msg.edit(embed=em)
+            if self.mode == "xmas":
+                xmasurl = random.choice(XMAS_START)
+                delay = 2
+                em.set_image(url=xmasurl)
+                msg = await ctx.send(embed=em)
                 await asyncio.sleep(delay)
                 em.set_image(url=imagelist[inc])
                 await msg.edit(embed=em)
@@ -290,6 +320,12 @@ class GoogleImageSearch(commands.Cog):
                     msg = await ctx.send(cdiurl)
                     if cdiurl == CDI_START[2]:
                         delay = 3.5
+                    await asyncio.sleep(delay)
+                    await msg.edit(content=ytlinks[inc])
+                if self.mode == "xmas":
+                    xmasurl = random.choice(XMAS_START)
+                    delay = 2
+                    msg = await ctx.send(xmasurl)
                     await asyncio.sleep(delay)
                     await msg.edit(content=ytlinks[inc])
                 else:
