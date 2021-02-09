@@ -29,11 +29,6 @@ async def on_disconnect():
     print("Bot has disconnected from Discord.")
 
 
-@client.event
-async def on_command_error(ctx, error):
-    if isinstance(error, commands.CommandNotFound):
-        await ctx.send('Invalid command.')
-
 
 # purge messages command, checks if the user is admin.
 @client.command()
@@ -61,6 +56,6 @@ for filename in os.listdir('./cogs'):
 
 
 # run the bot with the discord token, currently token is exposed, security issue
-client.loop.create_task(app.run_task(LOCAL_IP, 5000, debug=True))
+# client.loop.create_task(app.run_task(LOCAL_IP, 5000, debug=True))
 client.run(DISCORD_TOKEN)
 
