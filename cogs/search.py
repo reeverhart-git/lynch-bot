@@ -267,7 +267,7 @@ class GoogleImageSearch(commands.Cog):
                 await asyncio.sleep(delay)
                 em.set_image(url=imagelist[inc])
                 await msg.edit(embed=em)
-            if self.mode == "xmas":
+            elif self.mode == "xmas":
                 xmasurl = random.choice(XMAS_START)
                 delay = 2
                 em.set_image(url=xmasurl)
@@ -322,7 +322,7 @@ class GoogleImageSearch(commands.Cog):
                         delay = 3.5
                     await asyncio.sleep(delay)
                     await msg.edit(content=ytlinks[inc])
-                if self.mode == "xmas":
+                elif self.mode == "xmas":
                     xmasurl = random.choice(XMAS_START)
                     delay = 2
                     msg = await ctx.send(xmasurl)
