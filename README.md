@@ -29,8 +29,8 @@ In constant development, designed for individual server use.
 	Users can downvote eachother and jokingly put eachother in 	the corner of shame.
 	Users can annoy their friends by making the bot spam them 	with custom made insults.
 
-# In Development
-(cyoa.py)
-	Users can create an interactive choose-your-own-adventure 	game and have their friends complete it.
+# Cross Server Communication
+(JamesChat.py)
+	Users can open a direct communication line between any servers Lynch-Bot resides in. At the moment, this is stylized to look like sci-fi styled "Star Control II" broadcasts.
 
 	
